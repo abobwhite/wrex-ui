@@ -1,13 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+/* Variables */
+$primary: #c2185b;
 
+/* For Everyone */
 body {
   font-family: 'Raleway', sans-serif;
   font-weight: 100;
 }
 
+h1 small {
+  font-size: .6em;
+  line-height: .5em;
+}
+
+.page {
+  padding: 16px;
+}
+
+.button-row {
+  button, a {
+    margin-right: 8px;
+  }
+}
+
 /* Navigation */
 .mat-list-item.active {
-  color: #c2185b;
+  color: $primary;
   font-weight: 700;
 }

@@ -1,4 +1,11 @@
-<p>
-  landing works!
-</p>
-<p>{{info && info.version}}</p>
+<div class="page">
+  <h1>
+    Welcome to wrex.<br>
+    <small>an awesome app for getting awesome.</small>
+  </h1>
+  <p>{{info && info.version}}</p>
+  <div class="button-row">
+      <a mat-stroked-button color="primary" routerLink="/dashboard">Login</a>
+      <a mat-stroked-button color="primary" routerLink="/registration">Register</a>
+  </div>
+</div>
