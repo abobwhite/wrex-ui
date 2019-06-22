@@ -5,3 +5,9 @@ body {
   font-family: 'Raleway', sans-serif;
   font-weight: 100;
 }
+
+/* Navigation */
+.mat-list-item.active {
+  color: #c2185b;
+  font-weight: 700;
+}
