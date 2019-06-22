@@ -10,6 +10,8 @@ import { RecommendationType } from '../types/recommendation-type.enum';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  public RecommendationType = RecommendationType;
+
   public loadingRecommendations = true;
   public recommendations: Recommendation[] = [];
   private demoRecommendations: Recommendation[] = [
@@ -27,7 +29,7 @@ export class DashboardComponent implements OnInit {
       recommendationType: RecommendationType.Event,
       message: 'Think maybe you\'d to grab a beer with Pete Peterson?',
       date: '6/22/2019',
-      userId: '2',
+      userId: '1',
       tagCategoryId: '1',
       dismissed: false,
     },
@@ -82,6 +84,34 @@ export class DashboardComponent implements OnInit {
     }
 
     this.dismiss(notification);
+  }
+
+  public getRecommendationTypeIcon(type: RecommendationType) {
+    let icon: string;
+
+    switch (type) {
+      case RecommendationType.Event:
+        icon = 'calendar_today';
+        break;
+      case RecommendationType.Hangout:
+        icon = 'people';
+        break;
+      case RecommendationType.Learn:
+        icon = 'library_books';
+        break;
+      case RecommendationType.Mentorship:
+        icon = 'school';
+        break;
+      case RecommendationType.Opportunity:
+        icon = 'build';
+        break;
+
+      default:
+        icon = 'battery_unknown';
+        break;
+    }
+
+    return icon;
   }
 
   private dismiss(notification: Recommendation): void {

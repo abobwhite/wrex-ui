@@ -1,16 +1,28 @@
 ::ng-deep .mat-list.recommendations {
-  align-content: space-between;
 
-  .mat-list-item:not(:last-child) {
-    margin-bottom: 8px;
+  .mat-list-item {
+    height: initial;
+    min-height: 48px;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
   }
 
   .mat-list-item-content {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
 
+    .mat-icon {
+      margin-right: 8px;
+    }
+
     p {
       flex: 1;
+    }
+
+    .button-row {
+      margin-left: 8px;
     }
   }
 }
