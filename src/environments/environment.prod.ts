@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   apiEndpoints: {
-    recommendation: `/users/:userId/recommendations`,
+    getRecommendations: `/users/:userId/recommendations`,
+    patchRecommendation: `/users/:userId/recommendations/:recommendationId`
   }
 };
