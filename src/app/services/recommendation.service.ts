@@ -15,14 +15,14 @@ export class RecommendationService {
   constructor(private http: HttpClient, private apiRouteMapper: ApiRouteMapperService) { }
 
   public getRecommendations(userId: string = this.userId) {
-    const route = this.apiRouteMapper.mapRoute({userId}, environment.apiEndpoints.getRecommendations);
+    const route = this.apiRouteMapper.mapRoute({ userId }, environment.apiEndpoints.getRecommendations);
     this.recommendations$ = this.http.get(route) as any;
 
     return this.recommendations$;
   }
 
   public updateRecommendation(recommendation: Recommendation, userId: string = this.userId) {
-    const route = this.apiRouteMapper.mapRoute({userId, recommendationId: recommendation.id}, environment.apiEndpoints.patchRecommendation);
+    const route = this.apiRouteMapper.mapRoute({ userId, recommendationId: recommendation.id }, environment.apiEndpoints.patchRecommendation);
     return this.http.patch(route, recommendation);
   }
 }
