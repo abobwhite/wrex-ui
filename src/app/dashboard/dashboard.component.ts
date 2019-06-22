@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit {
       case RecommendationType.OPPORTUNITY:
         icon = 'build';
         break;
-
       default:
         icon = 'battery_unknown';
         break;
@@ -69,5 +68,4 @@ export class DashboardComponent implements OnInit {
   private dismiss(recommendation: Recommendation): void {
     this.recommendations = this.recommendations.filter(n => n.id !== recommendation.id);
   }
-
 }
