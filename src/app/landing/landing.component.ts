@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PocService } from '../poc.service';
 
 @Component({
   selector: 'app-landing',
@@ -8,17 +7,8 @@ import { PocService } from '../poc.service';
 })
 export class LandingComponent implements OnInit {
 
-  info: any;
-  constructor(private pocService: PocService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getInfo();
-  }
-
-  public getInfo() {
-    this.pocService.getInfo()
-      .subscribe((info: any) => {
-        this.info = info;
-      });
   }
 }

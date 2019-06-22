@@ -12,6 +12,7 @@ import { LandingComponent } from './landing/landing.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { CreditsComponent } from './credits/credits.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RegistrationComponent } from './registration/registration.component';
     LandingComponent,
     RegistrationComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,6 @@ import { RegistrationComponent } from './registration/registration.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [LandingComponent, RegistrationComponent, DashboardComponent, ProfileComponent]
+  entryComponents: [LandingComponent, RegistrationComponent, DashboardComponent, ProfileComponent, CreditsComponent]
 })
 export class AppModule { }

@@ -1,5 +1,27 @@
 <div class="page">
-  <p>
-    dashboard works!
-  </p>
+  <h1>Dashboard</h1>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Recommendations</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list class="recommendations">
+        <mat-list-item *ngFor="let recommendation of recommendations">
+          <p>{{recommendation.message}}</p>
+          <div class="button-row">
+            <button mat-flat-button color="primary" (click)="accept(recommendation, true)">Yes</button>
+            <button mat-stroked-button (click)="accept(recommendation, false)">No</button>
+          </div>
+        </mat-list-item>
+        <mat-list-item *ngIf="!loading && recommendations && !recommendations.length">
+          <p>Sorry, we don't have any recommendations for you at this time. <a mat-button color="primary" routerLink="/">Maybe fill out a survey?</a></p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <span class="spacer"></span>
+      <button mat-flat-button color="primary">See More</button>
+      <button mat-button>Dismiss All</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
