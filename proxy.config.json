@@ -1,8 +1,11 @@
 {
   "/api/*": {
-    "target": "http://165.22.45.117",
+    "target": "http://165.22.45.117:8081",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
   }
 }

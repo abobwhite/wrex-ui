@@ -3,7 +3,7 @@ import { RecommendationType } from './recommendation-type.enum';
 
 export class Recommendation {
   id: string;
-  recommendationType: RecommendationType;
+  type: RecommendationType;
   tagCategoryId: string;
   date: string;
   userId: string;

@@ -1,4 +1,4 @@
 export enum RecommendationFeedback {
-  Liked = 'Liked',
-  Disliked = 'Disliked'
+  LIKED = 'LIKED',
+  DISLIKED = 'DISLIKED'
 }

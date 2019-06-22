@@ -14,55 +14,6 @@ export class DashboardComponent implements OnInit {
 
   public loadingRecommendations = true;
   public recommendations: Recommendation[] = [];
-  private demoRecommendations: Recommendation[] = [
-    {
-      id: '1',
-      recommendationType: RecommendationType.Hangout,
-      message: 'Think maybe you\'d like to happy hour with a small group and talk about video games?',
-      date: '6/22/2019',
-      userId: '1',
-      tagCategoryId: '1',
-      dismissed: false,
-    },
-    {
-      id: '2',
-      recommendationType: RecommendationType.Event,
-      message: 'Think maybe you\'d to grab a beer with Pete Peterson?',
-      date: '6/22/2019',
-      userId: '1',
-      tagCategoryId: '1',
-      dismissed: false,
-    },
-    {
-      id: '3',
-      recommendationType: RecommendationType.Event,
-      message: 'Ben Rogers wants to help you with functional react.',
-      date: '6/22/2019',
-      userId: '1',
-      tagCategoryId: '2',
-      dismissed: false,
-    },
-    {
-      id: '4',
-      recommendationType: RecommendationType.Event,
-      message: 'I should not be shown and was not liked.',
-      date: '6/22/2019',
-      userId: '1',
-      tagCategoryId: '1',
-      dismissed: true,
-      feedback: RecommendationFeedback.Disliked
-    },
-    {
-      id: '5',
-      recommendationType: RecommendationType.Event,
-      message: 'I have also been dismissed but I was liked.',
-      date: '6/22/2019',
-      userId: '1',
-      tagCategoryId: '1',
-      dismissed: true,
-      feedback: RecommendationFeedback.Liked
-    },
-  ];
 
   constructor(private recommendationService: RecommendationService) { }
 
@@ -72,7 +23,7 @@ export class DashboardComponent implements OnInit {
         this.recommendations = recommendations.filter((r) => !r.dismissed);
         this.loadingRecommendations = false;
       }, () => {
-        this.recommendations = this.demoRecommendations.filter((r) => !r.dismissed);
+        console.error('aww we failed to get wrex.');
         this.loadingRecommendations = false;
       }
     );
@@ -82,7 +33,7 @@ export class DashboardComponent implements OnInit {
     this.dismiss(recommendation);
 
     recommendation.dismissed = true;
-    recommendation.feedback = accept ? RecommendationFeedback.Liked : RecommendationFeedback.Disliked;
+    recommendation.feedback = accept ? RecommendationFeedback.LIKED : RecommendationFeedback.DISLIKED;
 
     this.recommendationService.updateRecommendation(recommendation).subscribe();
   }
@@ -91,19 +42,19 @@ export class DashboardComponent implements OnInit {
     let icon: string;
 
     switch (type) {
-      case RecommendationType.Event:
+      case RecommendationType.EVENT:
         icon = 'calendar_today';
         break;
-      case RecommendationType.Hangout:
+      case RecommendationType.HANGOUT:
         icon = 'people';
         break;
-      case RecommendationType.Learn:
+      case RecommendationType.LEARN:
         icon = 'library_books';
         break;
-      case RecommendationType.Mentorship:
+      case RecommendationType.MENTORSHIP:
         icon = 'school';
         break;
-      case RecommendationType.Opportunity:
+      case RecommendationType.OPPORTUNITY:
         icon = 'build';
         break;
 

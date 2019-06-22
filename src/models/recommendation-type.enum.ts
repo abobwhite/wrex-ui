@@ -1,7 +1,7 @@
 export enum RecommendationType {
-  Hangout = 'Hangout',
-  Learn = 'Learn',
-  Event = 'Event',
-  Mentorship = 'Mentorship',
-  Opportunity = 'Opportunity'
+  HANGOUT = 'HANGOUT',
+  LEARN = 'LEARN',
+  EVENT = 'EVENT',
+  MENTORSHIP = 'MENTORSHIP',
+  OPPORTUNITY = 'OPPORTUNITY'
 }

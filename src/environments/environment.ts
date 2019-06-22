@@ -6,7 +6,7 @@ const apiBase = '/api';
 export const environment = {
   production: false,
   apiEndpoints: {
-    recommendation: `${apiBase}/user/recommendation`,
+    recommendation: `${apiBase}/users/:userId/recommendations`,
   }
 };
 

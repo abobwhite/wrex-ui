@@ -7,7 +7,7 @@
     <mat-card-content>
       <mat-list class="recommendations">
         <mat-list-item *ngFor="let recommendation of recommendations">
-          <mat-icon>{{getRecommendationTypeIcon(recommendation.recommendationType)}}</mat-icon>
+          <mat-icon>{{getRecommendationTypeIcon(recommendation.type)}}</mat-icon>
           <p>{{recommendation.message}}</p>
           <div class="button-row">
             <button mat-flat-button color="primary" (click)="accept(recommendation, true)">Yes</button>
