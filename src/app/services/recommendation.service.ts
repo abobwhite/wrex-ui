@@ -21,8 +21,8 @@ export class RecommendationService {
     return this.recommendations$;
   }
 
-  public updateRecommendation(recommendation: Recommendation, userId: string = this.userId) {
-    const route = this.apiRouteMapper.mapRoute({ userId, recommendationId: recommendation.id }, environment.apiEndpoints.patchRecommendation);
+  public updateRecommendation(recommendation: Recommendation) {
+    const route = this.apiRouteMapper.mapRoute({ recommendationId: recommendation.id }, environment.apiEndpoints.patchRecommendation);
     return this.http.patch(route, recommendation);
   }
 }
