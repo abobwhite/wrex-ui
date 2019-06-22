@@ -1,5 +1,5 @@
 import { RecommendationFeedback } from './recommendation-feedback.enum';
-import { RecommendationType } from '../app/types/recommendation-type.enum';
+import { RecommendationType } from './recommendation-type.enum';
 
 export class Recommendation {
   id: string;

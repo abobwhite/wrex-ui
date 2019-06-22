@@ -17,4 +17,8 @@ export class RecommendationService {
 
     return this.recommendations$;
   }
+
+  public updateRecommendation(recommendation: Recommendation) {
+    return this.http.patch(`${environment.apiEndpoints.recommendation}/${recommendation.id}`, recommendation);
+  }
 }

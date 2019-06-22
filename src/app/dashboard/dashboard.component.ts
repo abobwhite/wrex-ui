@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RecommendationFeedback } from '../../models/recommendation-feedback.enum';
 import { Recommendation } from '../../models/recommendation.model';
 import { RecommendationService } from '../services/recommendation.service';
-import { RecommendationType } from '../types/recommendation-type.enum';
+import { RecommendationType } from '../../models/recommendation-type.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -64,12 +64,12 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  constructor(private recommendationNotificationService: RecommendationService) { }
+  constructor(private recommendationService: RecommendationService) { }
 
   ngOnInit() {
-    this.recommendationNotificationService.getRecommendations().subscribe(
-      (notifications: Recommendation[]) => {
-        this.recommendations = notifications.filter((r) => !r.dismissed);
+    this.recommendationService.getRecommendations().subscribe(
+      (recommendations: Recommendation[]) => {
+        this.recommendations = recommendations.filter((r) => !r.dismissed);
         this.loadingRecommendations = false;
       }, () => {
         this.recommendations = this.demoRecommendations.filter((r) => !r.dismissed);
@@ -78,12 +78,13 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  public accept(notification: Recommendation, accept: boolean): void {
-    if (accept) {
-      console.log(`you accepted notification ${notification.id}.`);
-    }
+  public accept(recommendation: Recommendation, accept: boolean): void {
+    this.dismiss(recommendation);
 
-    this.dismiss(notification);
+    recommendation.dismissed = true;
+    recommendation.feedback = accept ? RecommendationFeedback.Liked : RecommendationFeedback.Disliked;
+
+    this.recommendationService.updateRecommendation(recommendation).subscribe();
   }
 
   public getRecommendationTypeIcon(type: RecommendationType) {
@@ -114,8 +115,8 @@ export class DashboardComponent implements OnInit {
     return icon;
   }
 
-  private dismiss(notification: Recommendation): void {
-    this.recommendations = this.recommendations.filter(n => n.id !== notification.id);
+  private dismiss(recommendation: Recommendation): void {
+    this.recommendations = this.recommendations.filter(n => n.id !== recommendation.id);
   }
 
 }
