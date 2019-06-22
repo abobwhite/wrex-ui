@@ -1,5 +1,20 @@
 <div class="page">
-  <p>
-    profile works!
-  </p>
+  <div *ngIf="!loadingUser">
+    <img [src]="userProfilePictureRoute">
+    <div>
+      <h1>{{user.firstName}} {{user.lastName}}</h1>
+      email: {{user.email}}<br>
+      slackId: SlackMan9000
+    </div>
+    <div></div>
+    <div>
+      <h2>Tell wrexy what you did this week.</h2>
+      <div class="form-container">
+        <mat-form-field variant="outline" floatLabel="never">
+          <textarea matInput placeholder="e.g. Today I did awesome it in VisualBasic."></textarea>
+        </mat-form-field>
+        <button mat-flat-button color="primary">Submit</button>
+      </div>
+    </div>
+  </div>
 </div>
