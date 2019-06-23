@@ -12,13 +12,18 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     this.getBranches();
     this.getLinesOfService();
+    this.getTags();
   }
 
-  public getBranches() {
+  private getBranches() {
     this.referenceService.getBranches().subscribe();
   }
 
-  public getLinesOfService() {
+  private getLinesOfService() {
     this.referenceService.getLinesOfService().subscribe();
+  }
+
+  private getTags() {
+    this.referenceService.getTags().subscribe();
   }
 }

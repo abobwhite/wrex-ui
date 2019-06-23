@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class ReferenceService {
   public branches$: Observable<any>;
   public linesOfService$: Observable<any>;
+  public tags$: Observable<any>;
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +28,13 @@ export class ReferenceService {
     }
 
     return this.linesOfService$;
+  }
+
+  public getTags() {
+    if (!this.tags$) {
+      this.tags$ = this.http.get(environment.apiEndpoints.getTags).pipe(shareReplay(1));
+    }
+
+    return this.tags$;
   }
 }
