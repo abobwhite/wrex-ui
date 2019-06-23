@@ -1,51 +1,43 @@
 <div class="page">
   <h1>Register</h1>
-  <mat-card>
-    <mat-form-field appearance="outline">
-      <mat-label>First Name</mat-label>
-      <input matInput placeholder="Name">
-    </mat-form-field>
+  <form *ngIf="!userLoading" [formGroup]="userFormGroup"  (ngSubmit)="submitRegistration()">
+    <mat-card>
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="First Name">
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Name">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Last Name">
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Email">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Line of Service</mat-label>
+        <mat-select formControlName="lineOfServiceId">
+          <mat-option>Pick one</mat-option>
+          <mat-option *ngFor="let lineOfService of linesOfService" [value]="lineOfService.id">{{lineOfService.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input matInput placeholder="Password" type="password">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Branch</mat-label>
+        <mat-select formControlName="branchId">
+          <mat-option>Pick one</mat-option>
+          <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Line of Service</mat-label>
-      <mat-select>
-        <mat-option>Pick one</mat-option>
-        <mat-option *ngFor="let lineOfService of linesOfService" [value]="lineOfService">{{lineOfService.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input formControlName="hireDate" matInput [matDatepicker]="picker" placeholder="Hire Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Branch</mat-label>
-      <mat-select>
-        <mat-option>Pick one</mat-option>
-        <mat-option *ngFor="let branch of branches" [value]="branch">{{branch.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <input matInput [matDatepicker]="picker" placeholder="Hire Date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <div fxLayout="row-reverse">
-      <a mat-flat-button color="primary" routerLink="/preferences">Continue</a>
-    </div>
-  </mat-card>
+      <div fxLayout="row-reverse">
+        <a mat-flat-button color="primary" (click)="submitRegistration()" type="submit">Continue</a>
+      </div>
+    </mat-card>
+  </form>
 </div>

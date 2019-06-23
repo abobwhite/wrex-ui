@@ -1,14 +1,13 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  <mat-sidenav *ngIf="showNav" #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar></mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Landing</a>
-      <a mat-list-item routerLinkActive="active" routerLink="/registration">Registration</a>
-      <a mat-list-item routerLinkActive="active" routerLink="/dashboard">Dashboard</a>
-      <a mat-list-item routerLinkActive="active" routerLink="/search">Search</a>
-      <a mat-list-item routerLinkActive="active" routerLink="/profile">Profile</a>
-      <a mat-list-item routerLinkActive="active" routerLink="/preferences">Preferences</a>
+      <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">About</a>
+      <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="active" routerLink="/dashboard">Dashboard</a>
+      <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="active" routerLink="/search">Search</a>
+      <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="active" routerLink="/profile">Profile</a>
+      <a *ngIf="isLoggedIn" mat-list-item routerLinkActive="active" routerLink="/preferences">Preferences</a>
       <a mat-list-item routerLinkActive="active" routerLink="/credits">Credits</a>
     </mat-nav-list>
   </mat-sidenav>

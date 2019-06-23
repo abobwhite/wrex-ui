@@ -3,6 +3,7 @@ import { RecommendationFeedback } from '../../models/recommendation-feedback.enu
 import { Recommendation } from '../../models/recommendation.model';
 import { RecommendationService } from '../services/recommendation.service';
 import { RecommendationType } from '../../models/recommendation-type.enum';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,18 +16,20 @@ export class DashboardComponent implements OnInit {
   public loadingRecommendations = true;
   public recommendations: Recommendation[] = [];
 
-  constructor(private recommendationService: RecommendationService) { }
+  constructor(private recommendationService: RecommendationService, private userService: UserService) { }
 
   ngOnInit() {
-    this.recommendationService.getRecommendations().subscribe(
-      (recommendations: Recommendation[]) => {
-        this.recommendations = recommendations.filter((r) => !r.dismissed);
-        this.loadingRecommendations = false;
-      }, () => {
-        console.error('aww we failed to get wrex.');
-        this.loadingRecommendations = false;
-      }
-    );
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.recommendationService.getRecommendations(user.id).subscribe(
+        (recommendations: Recommendation[]) => {
+          this.recommendations = recommendations.filter((r) => !r.dismissed);
+          this.loadingRecommendations = false;
+        }, () => {
+          console.error('aww we failed to get wrex.');
+          this.loadingRecommendations = false;
+        }
+      );
+    })
   }
 
   public accept(recommendation: Recommendation, accept: boolean): void {

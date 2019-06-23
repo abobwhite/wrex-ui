@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
       this.myProfile = !userFromRoute;
 
       if (this.myProfile) {
-        this.user$ = this.userService.getCurrentUser('UKFMZV1NW');
+        this.user$ = this.userService.getCurrentUser();
       } else {
         this.user$ = this.userService.getUser(userFromRoute);
       }

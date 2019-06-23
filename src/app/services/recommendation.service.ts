@@ -10,11 +10,10 @@ import { ApiRouteMapperService } from './api-route-mapper.service';
 })
 export class RecommendationService {
   private recommendations$: Observable<Recommendation[]>;
-  private userId = 'UKFMZV1NW';
 
   constructor(private http: HttpClient, private apiRouteMapper: ApiRouteMapperService) { }
 
-  public getRecommendations(userId: string = this.userId) {
+  public getRecommendations(userId: string) {
     const route = this.apiRouteMapper.mapRoute({ userId }, environment.apiEndpoints.getRecommendations);
     this.recommendations$ = this.http.get(route) as any;
 

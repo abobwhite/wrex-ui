@@ -42,7 +42,7 @@ export class PreferencesComponent implements OnInit {
   }
 
   public getCurrentUser() {
-    this.userService.getCurrentUser('UKFMZV1NW').subscribe((user) => {
+    this.userService.getCurrentUser().subscribe((user) => {
       this.user = user;
       if (!this.user.preferences) {
         this.user.preferences = {
