@@ -1,7 +1,7 @@
 <div class="page">
   <mat-form-field variant="outline">
     <mat-label>Search</mat-label>
-    <input matInput>
+    <input matInput (keyup)="applyFilter($event.target.value)">
   </mat-form-field>
   <table *ngIf="users" mat-table [dataSource]="users" matSort>
     <ng-container matColumnDef="name">

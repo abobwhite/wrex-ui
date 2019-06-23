@@ -25,4 +25,8 @@ export class SearchComponent implements OnInit {
       this.users.sort = this.sort;
     })
   }
+
+  public applyFilter(filterValue: string) {
+    this.users.filter = filterValue.trim().toLowerCase();
+  }
 }
