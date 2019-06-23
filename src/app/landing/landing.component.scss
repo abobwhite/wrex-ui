@@ -1,0 +1,14 @@
+.wrexy {
+  background-image: url('/assets/img/wrexy.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+  height: 512px;
+  position: relative;
+
+  a {
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 86px);
+  }
+}
