@@ -110,11 +110,13 @@ export class ProfileComponent implements OnInit {
   }
 
   public getUserBranch(branchId: string): string {
-    return this.branches.find((branch) => branch.id === branchId).name;
+    const userBranch = this.branches.find((branch) => branch.id === branchId);
+    return userBranch ? userBranch.name : 'unknown';
   }
 
   public getUserLineOfService(LineOfServiceId: string): string {
-    return this.linesOfService.find((lineOfService) => lineOfService.id === LineOfServiceId).name;
+    const userLineOfService = this.linesOfService.find((lineOfService) => lineOfService.id === LineOfServiceId);
+    return userLineOfService ? userLineOfService.name : 'unknown';
   }
 
   public getUserProfilePicture(): string {
