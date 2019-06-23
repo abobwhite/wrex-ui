@@ -10,6 +10,7 @@ export const environment = {
     getLinesOfService: `${apiBase}/linesofservice`,
     getTags: `${apiBase}/tags`,
     getUser: `${apiBase}/users/:userId`,
+    getUsers: `${apiBase}/users`,
     postUsersCode: `${apiBase}/users/code`,
     getRecommendations: `${apiBase}/users/:userId/recommendations`,
     patchRecommendation: `${apiBase}/recommendations/:recommendationId`
