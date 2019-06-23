@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   public user: User;
   public branches: any[];
   public linesOfService: any[];
-  public tags: Tag[];
+  public tags: any[];
   public statuses: any[];
 
   public userTags: any;
@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit {
 
   private mapTags() {
     this.userTags = this.tags.filter(
-      (tag) => this.user.userTags.find(
+      (tag) => tag.categoryConfidences && this.user.userTags.find(
         (userTag) => userTag && tag.id === userTag.tagId)).slice(0, 20);
   }
 
