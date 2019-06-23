@@ -1,20 +1,35 @@
 <div class="page">
-  <div *ngIf="!loadingUser">
+  <div *ngIf="!loadingUser && !loadingBranches && !loadingLinesOfService">
     <img [src]="userProfilePictureRoute">
-    <div>
-      <h1>{{user.firstName}} {{user.lastName}}</h1>
-      email: {{user.email}}<br>
-      slackId: SlackMan9000
+    <div class="user-info">
+      <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+      branch: {{ getUserBranch(user.branchId) }}<br>
+      LoS: {{ getUserLineOfService(user.lineOfServiceId) }}<br>
+      email: {{ user.email }}<br>
+      slackId: Slack9000
     </div>
-    <div></div>
-    <div>
-      <h2>Tell wrexy what you did this week.</h2>
-      <div class="form-container">
-        <mat-form-field variant="outline" floatLabel="never">
-          <textarea matInput placeholder="e.g. Today I did awesome it in VisualBasic."></textarea>
-        </mat-form-field>
-        <button mat-flat-button color="primary">Submit</button>
-      </div>
+    <mat-divider></mat-divider>
+    <div class="tags">
+      <mat-chip-list>
+        <mat-chip *ngFor="let tag of tags">{{ tag.name }}</mat-chip>
+      </mat-chip-list>
     </div>
+    <mat-card class="status-updater" [ngClass]="{'go-vert': hasSubmit}">
+      <mat-card-content>
+        <ng-container *ngIf="!hasSubmit; else submitComplete">
+          <h2>Tell wrexy what you did this week.</h2>
+          <div class="form-container">
+            <mat-form-field variant="outline" floatLabel="never">
+              <textarea matInput placeholder="e.g. Today I did awesome in VisualBasic."></textarea>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="submitStatus()">Submit</button>
+          </div>
+        </ng-container>
+
+        <ng-template #submitComplete>
+          <h2>Your status has been recorded. <button (click)="hasSubmit = false" mat-button>Have something else to say?</button></h2>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

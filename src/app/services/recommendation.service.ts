@@ -10,7 +10,7 @@ import { ApiRouteMapperService } from './api-route-mapper.service';
 })
 export class RecommendationService {
   private recommendations$: Observable<Recommendation[]>;
-  private userId = '5d0e513ac7e3e579444ee8f6';
+  private userId = 'UKFMZV1NW';
 
   constructor(private http: HttpClient, private apiRouteMapper: ApiRouteMapperService) { }
 
