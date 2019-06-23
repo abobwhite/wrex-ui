@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { Tag } from 'src/models/tag.model';
 import { User } from '../../models/user.model';
 import { ReferenceService } from '../services/reference.service';
 import { UserService } from '../services/user.service';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   public loadingTags = true;
 
   public hasSubmit = false;
+  public myProfile: boolean;
 
   public user: User;
   public branches: any[];
@@ -32,7 +33,7 @@ export class ProfileComponent implements OnInit {
   private user$: Observable<any>;
   private tags$: Observable<any>;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService, private referenceService: ReferenceService) { }
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private referenceService: ReferenceService) { }
 
   ngOnInit() {
     this.getUser();
@@ -46,10 +47,17 @@ export class ProfileComponent implements OnInit {
     this.user$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const userFromRoute = params.get('userId');
-        return this.userService.getUser(userFromRoute ? userFromRoute : 'UKFMZV1NW');
+
+        this.myProfile = !userFromRoute;
+
+        if (this.myProfile) {
+          return this.userService.getCurrentUser('UKFMZV1NW');
+        } else {
+          return this.userService.getUser(userFromRoute);
+        }
       })
-    )
-    // this.user$ = this.userService.getUser('UKFMZV1NW');
+    );
+
     this.user$.pipe(shareReplay(1)).subscribe((user: User) => {
       this.loadingUser = false;
       this.user = user;

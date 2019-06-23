@@ -14,7 +14,7 @@
         <mat-chip *ngFor="let tag of userTags">{{ tag.name }}</mat-chip>
       </mat-chip-list>
     </div>
-    <mat-card class="status-updater" [ngClass]="{'go-vert': hasSubmit}">
+    <mat-card *ngIf="myProfile" class="status-updater" [ngClass]="{'go-vert': hasSubmit}">
       <mat-card-content>
         <ng-container *ngIf="!hasSubmit; else submitComplete">
           <h2>Tell wrexy what you did this week.</h2>
