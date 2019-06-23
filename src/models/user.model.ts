@@ -1,3 +1,4 @@
+import { UserTag } from './user-tag.model';
 export class User {
   id: string;
   firstName: string;
@@ -8,4 +9,5 @@ export class User {
   branchId: string;
   registrationDate: Date;
   slackId: string;
+  userTags?: UserTag[];
 }

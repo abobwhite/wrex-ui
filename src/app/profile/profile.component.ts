@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
+import { Tag } from 'src/models/tag.model';
 import { User } from '../../models/user.model';
 import { ReferenceService } from '../services/reference.service';
 import { UserService } from '../services/user.service';
@@ -19,9 +22,14 @@ export class ProfileComponent implements OnInit {
   public user: User;
   public branches: any[];
   public linesOfService: any[];
-  public tags: any[];
+  public tags: Tag[];
+
+  public userTags: any;
 
   public userProfilePictureRoute: string;
+
+  private user$: Observable<any>;
+  private tags$: Observable<any>;
 
   constructor(private userService: UserService, private referenceService: ReferenceService) { }
 
@@ -30,25 +38,41 @@ export class ProfileComponent implements OnInit {
     this.getBranches();
     this.getLinesOfService();
     this.getTags();
+    this.prepMapTags();
   }
 
   private getUser() {
-    this.userService.getUser('UKFMZV1NW').subscribe((user: User) => {
+    this.user$ = this.userService.getUser('UKFMZV1NW');
+    this.user$.pipe(shareReplay(1)).subscribe((user: User) => {
       this.loadingUser = false;
       this.user = user;
       this.userProfilePictureRoute = this.getUserProfilePicture();
     }, () => {
       this.loadingUser = false;
 
-      console.error('could not get a user');
+      console.error('could not get a user.');
     });
   }
 
   private getTags() {
-    this.referenceService.getTags().subscribe((tags) => {
+    this.tags$ = this.referenceService.getTags();
+    this.tags$.pipe(shareReplay(1)).subscribe((tags) => {
       this.tags = tags;
       this.loadingTags = false;
     })
+  }
+
+  private prepMapTags() {
+    const forkingShit = forkJoin([this.tags$, this.user$]);
+    forkingShit.subscribe(([tags, user]) => {
+      this.mapTags();
+    });
+  }
+
+  private mapTags() {
+    this.userTags = this.tags.filter(
+      (tag) => this.user.userTags.find(
+        (userTag) => userTag && tag.id === userTag.tagId));
   }
 
   private getBranches() {
