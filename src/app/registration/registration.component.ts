@@ -9,20 +9,27 @@ import { UserService } from '../services/user.service'
 })
 export class RegistrationComponent implements OnInit {
   public linesOfService = [
-    {name: 'BA'},
-    {name: 'D&A'},
-    {name: 'SA&E'},
+    { name: 'BA' },
+    { name: 'D&A' },
+    { name: 'SA&E' },
   ]
 
   public branches = [
-    {name: 'STL'},
-    {name: 'MSL'}
+    { name: 'STL' },
+    { name: 'MSL' }
   ]
 
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userService.postUsersCode(this.activatedRoute.snapshot.paramMap.get('code'))
+    const code = this.activatedRoute.snapshot.paramMap.get('code');
+    if (code) {
+      this.userService.postUsersCode(code).subscribe((thing) => {
+        console.log(thing);
+      })
+    } else {
+      console.log('no code, bruh')
+    }
   }
 }
