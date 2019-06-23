@@ -1,7 +1,78 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
-/* Variables */
-$primary: #c2185b;
+
+$md-primary: (
+  50 : #f3fcf2,
+  100 : #e0f6dd,
+  200 : #ccf1c7,
+  300 : #b8ebb1,
+  400 : #a8e6a0,
+  500 : #99e28f,
+  600 : #91df87,
+  700 : #86da7c,
+  800 : #7cd672,
+  900 : #6bcf60,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #d8ffd4,
+  A700 : #c1ffbb,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-accent: (
+  50 : #e5f4f3,
+  100 : #bee4e1,
+  200 : #93d3cd,
+  300 : #67c1b8,
+  400 : #47b3a9,
+  500 : #26a69a,
+  600 : #229e92,
+  700 : #1c9588,
+  800 : #178b7e,
+  900 : #0d7b6c,
+  A100 : #adfff3,
+  A200 : #7affec,
+  A400 : #47ffe4,
+  A700 : #2dffe0,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  ));
+
+$primary: mat-palette($md-primary);
+$accent: mat-palette($md-accent);
+
+$theme: mat-dark-theme($primary, $accent);
+
+@include angular-material-theme($theme);
 
 /* For Everyone */
 body {
@@ -9,11 +80,11 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
-  font-weight: 100;
+  font-weight: 500;
 }
 
 a {
-  color: $primary;
+  color: #99e28f;
 }
 
 h1 small {
@@ -23,16 +94,19 @@ h1 small {
 
 .page {
   padding: 16px;
+  max-height: calc(100vh - 160px);
 }
 
 .button-row {
-  button, a {
+
+  button,
+  a {
     margin-right: 8px;
   }
 }
 
 /* Navigation */
 .mat-list-item.active {
-  color: $primary;
+  color: #99e28f;
   font-weight: 700;
 }

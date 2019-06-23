@@ -1,3 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  &.gt-sm {
+    flex-direction: row;
+    justify-content: space-between;
+
+    .recent,
+    .user-info {
+      flex: 1
+    }
+  }
+}
+
 .tags,
 .user-info {
   margin: 32px 0;

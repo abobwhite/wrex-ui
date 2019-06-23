@@ -1,10 +1,21 @@
 <div class="page">
   <div *ngIf="!loadingUser && !loadingBranches && !loadingLinesOfService">
-    <img [src]="userProfilePictureRoute">
-    <div class="user-info">
-      <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-      branch: {{ getUserBranch(user.branchId) }}<br>
-      LoS: {{ getUserLineOfService(user.lineOfServiceId) }}
+    <div class="container" ngClass.gt-sm="gt-sm">
+      <div class="user-info">
+        <img [src]="userProfilePictureRoute">
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        branch: {{ getUserBranch(user.branchId) }}<br>
+        LoS: {{ getUserLineOfService(user.lineOfServiceId) }}
+      </div>
+
+      <div class="recent">
+        <h2>Recent Status Updates</h2>
+        <mat-list>
+          <mat-list-item *ngFor="let status of statuses">
+            {{status.message}}
+          </mat-list-item>
+        </mat-list>
+      </div>
     </div>
     <mat-divider></mat-divider>
     <div class="tags">
@@ -32,11 +43,5 @@
         </ng-template>
       </mat-card-content>
     </mat-card>
-    <h2>5 most recent status updates</h2>
-    <mat-list>
-      <mat-list-item *ngFor="let status of statuses">
-        {{status.message}}
-      </mat-list-item>
-    </mat-list>
   </div>
 </div>

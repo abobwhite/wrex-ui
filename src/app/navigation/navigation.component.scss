@@ -1,5 +1,5 @@
 .sidenav-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
 }
 
 .sidenav {
@@ -10,8 +10,37 @@
   background: inherit;
 }
 
+.logo {
+  height: initial;
+
+  img {
+    width: 110px;
+    margin: 16px auto;
+  }
+}
+
+.title {
+  font-weight: bold;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.footer {
+  padding-right: 16px;
+  box-sizing: border-box;
+
+  &.gt-sm {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+
+  p {
+    flex: 1;
+    font-size: 0.7em;
+    text-align: right;
+  }
 }
