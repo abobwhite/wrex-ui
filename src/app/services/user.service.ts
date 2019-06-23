@@ -8,17 +8,21 @@ import { ApiRouteMapperService } from './api-route-mapper.service';
   providedIn: 'root'
 })
 export class UserService {
-  private user$: Observable<any>;
+  private currentUser$: Observable<any>;
   private users$: Observable<any>;
 
   constructor(private http: HttpClient, private apiRouteMapper: ApiRouteMapperService) {
   }
 
-  public getUser(userId: string) {
-    if (!this.user$) {
-      this.user$ = this.http.get(this.apiRouteMapper.mapRoute({userId}, environment.apiEndpoints.getUser));
+  public getCurrentUser(userId: string) {
+    if (!this.currentUser$) {
+      this.currentUser$ = this.getUser(userId);
     }
-    return this.user$;
+    return this.currentUser$;
+  }
+
+  public getUser(userId: string) {
+    return this.http.get(this.apiRouteMapper.mapRoute({userId}, environment.apiEndpoints.getUser));
   }
 
   public getUsers() {
