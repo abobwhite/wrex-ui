@@ -2,8 +2,7 @@
 @import '~@angular/material/theming';
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
-$md-primary: (
-  50 : #f3fcf2,
+$md-primary: (50 : #f3fcf2,
   100 : #e0f6dd,
   200 : #ccf1c7,
   300 : #b8ebb1,
@@ -17,8 +16,7 @@ $md-primary: (
   A200 : #ffffff,
   A400 : #d8ffd4,
   A700 : #c1ffbb,
-  contrast: (
-    50 : #000000,
+  contrast: (50 : #000000,
     100 : #000000,
     200 : #000000,
     300 : #000000,
@@ -32,11 +30,9 @@ $md-primary: (
     A200 : #000000,
     A400 : #000000,
     A700 : #000000,
-  )
-);
+  ));
 
-$md-accent: (
-  50 : #e5f4f3,
+$md-accent: (50 : #e5f4f3,
   100 : #bee4e1,
   200 : #93d3cd,
   300 : #67c1b8,
@@ -50,8 +46,7 @@ $md-accent: (
   A200 : #7affec,
   A400 : #47ffe4,
   A700 : #2dffe0,
-  contrast: (
-    50 : #000000,
+  contrast: (50 : #000000,
     100 : #000000,
     200 : #000000,
     300 : #000000,
@@ -76,11 +71,20 @@ $theme: mat-dark-theme($primary, $accent);
 
 /* For Everyone */
 body {
-  font-family: 'Raleway', sans-serif;
   height: 100vh;
   padding: 0;
   margin: 0;
   font-weight: 500;
+}
+
+body,
+.mat-list-item,
+a,
+h1,
+h2,
+h3,
+.mat-card {
+  font-family: 'Raleway', sans-serif !important;
 }
 
 a {
