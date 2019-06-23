@@ -13,6 +13,11 @@
   }
 }
 
+.recent .mat-list-item {
+  height: initial;
+  min-height: 48px;
+}
+
 .tags,
 .user-info {
   margin: 32px 0;
