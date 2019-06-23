@@ -32,6 +32,10 @@ export class UserService {
     return this.users$;
   }
 
+  public updateUser(user) {
+    return this.http.patch(this.apiRouteMapper.mapRoute({userId: user.id}, environment.apiEndpoints.getUser), user);
+  }
+
   public postUsersCode(code: string) {
     return this.http.post(environment.apiEndpoints.postUsersCode, {code})
   }

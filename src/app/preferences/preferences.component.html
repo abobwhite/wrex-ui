@@ -1,0 +1,25 @@
+<div class="page">
+  <h1>Preferences</h1>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-subtitle>Are you interested in any of the following?</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="!userLoading" class="preferences-wrapper">
+        <div *ngFor="let pref of preferences" class="preference" ngClass.gt-sm="gt-sm">
+          <span>{{pref.name}}:</span>
+          <mat-button-toggle-group #group="matButtonToggleGroup" (click)="do(pref.id, group.value)">
+            <mat-button-toggle [value]="true" [checked]="user.preferences && user.preferences[pref.id]">Yes
+            </mat-button-toggle>
+            <mat-button-toggle [value]="false" [checked]="user.preferences && !user.preferences[pref.id]">No
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <div fxLayout="row-reverse">
+      <button [disabled]="userLoading" mat-flat-button color="primary" (click)="submitPreferences()">Continue</button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,22 @@
+.preferences-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  .preference {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 16px 0;
+
+    &.gt-sm {
+      flex: 0 0 50%;
+      padding: 16px;
+    }
+
+    .mat-button-toggle {
+      width: 48px;
+    }
+  }
+}

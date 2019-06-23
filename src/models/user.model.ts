@@ -1,4 +1,5 @@
 import { UserTag } from './user-tag.model';
+
 export class User {
   id: string;
   firstName: string;
