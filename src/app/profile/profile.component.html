@@ -20,16 +20,25 @@
           <h2>Tell wrexy what you did this week.</h2>
           <div class="form-container">
             <mat-form-field variant="outline" floatLabel="never">
-              <textarea matInput placeholder="e.g. Today I did awesome in VisualBasic."></textarea>
+              <textarea [(ngModel)]="statusMessage" matInput
+                placeholder="e.g. Today I did awesome in VisualBasic."></textarea>
             </mat-form-field>
+
             <button mat-flat-button color="primary" (click)="submitStatus()">Submit</button>
           </div>
         </ng-container>
 
         <ng-template #submitComplete>
-          <h2>Your status has been recorded. <button (click)="hasSubmit = false" mat-button>Have something else to say?</button></h2>
+          <h2>Your status has been recorded. <button (click)="hasSubmit = false" mat-button>Have something else to
+              say?</button></h2>
         </ng-template>
       </mat-card-content>
     </mat-card>
+    <h2>5 most recent status updates</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let status of statuses">
+        {{status.message}}
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { shareReplay, switchMap } from 'rxjs/operators';
 import { Tag } from 'src/models/tag.model';
 import { User } from '../../models/user.model';
 import { ReferenceService } from '../services/reference.service';
+import { StatusesService } from '../services/statuses.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   public loadingLinesOfService = true;
   public loadingBranches = true;
   public loadingTags = true;
+  public loadingStatuses = true;
 
   public hasSubmit = false;
   public myProfile: boolean;
@@ -25,69 +26,73 @@ export class ProfileComponent implements OnInit {
   public branches: any[];
   public linesOfService: any[];
   public tags: Tag[];
+  public statuses: any[];
 
   public userTags: any;
 
   public userProfilePictureRoute: string;
+  public statusMessage: string;
 
   private user$: Observable<any>;
   private tags$: Observable<any>;
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private referenceService: ReferenceService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private referenceService: ReferenceService,
+    private statusesService: StatusesService
+  ) { }
 
   ngOnInit() {
-    this.getUser();
+    this.checkParams();
     this.getBranches();
     this.getLinesOfService();
-    this.getTags();
-    this.prepMapTags();
   }
 
-  private getUser() {
-    this.user$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        const userFromRoute = params.get('userId');
+  private checkParams() {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      const userFromRoute = params.get('userId');
 
-        this.myProfile = !userFromRoute;
+      this.myProfile = !userFromRoute;
 
-        if (this.myProfile) {
-          return this.userService.getCurrentUser('UKFMZV1NW');
-        } else {
-          return this.userService.getUser(userFromRoute);
-        }
-      })
-    );
+      if (this.myProfile) {
+        this.user$ = this.userService.getCurrentUser('UKFMZV1NW');
+      } else {
+        this.user$ = this.userService.getUser(userFromRoute);
+      }
 
-    this.user$.pipe(shareReplay(1)).subscribe((user: User) => {
-      this.loadingUser = false;
-      this.user = user;
-      this.userProfilePictureRoute = this.getUserProfilePicture();
-    }, () => {
-      this.loadingUser = false;
-
-      console.error('could not get a user.');
-    });
-  }
-
-  private getTags() {
-    this.tags$ = this.referenceService.getTags();
-    this.tags$.pipe(shareReplay(1)).subscribe((tags) => {
-      this.tags = tags;
-      this.loadingTags = false;
+      this.prepMapTags();
     })
   }
 
   private prepMapTags() {
+    this.tags$ = this.referenceService.getTags();
+
     const forkingShit = forkJoin([this.tags$, this.user$]);
-    forkingShit.subscribe(([tags, user]) => {
-      this.mapTags();
-    });
+
+    forkingShit.subscribe(
+      ([tags, user]) => {
+        this.tags = tags;
+        this.loadingTags = false;
+        this.user = user;
+        this.loadingUser = false;
+        this.userProfilePictureRoute = this.getUserProfilePicture();
+        this.getStatuses();
+        this.mapTags();
+      });
+  }
+
+  private getStatuses() {
+    this.statusesService.getStatuses(this.user.id).subscribe((statuses: any[]) => {
+      this.statuses = statuses.reverse().slice(0, 5);
+      this.loadingStatuses = false;
+    })
   }
 
   private mapTags() {
     this.userTags = this.tags.filter(
       (tag) => this.user.userTags.find(
-        (userTag) => userTag && tag.id === userTag.tagId));
+        (userTag) => userTag && tag.id === userTag.tagId)).slice(0, 20);
   }
 
   private getBranches() {
@@ -120,6 +125,16 @@ export class ProfileComponent implements OnInit {
   }
 
   public submitStatus() {
-    this.hasSubmit = true;
+    if (this.statusMessage) {
+      this.postStatus();
+    }
+  }
+
+  private postStatus() {
+    this.statusesService.postStatus(this.user.id, { message: this.statusMessage }).subscribe(() => {
+      this.hasSubmit = true;
+      this.statusMessage = '';
+      this.getStatuses();
+    })
   }
 }
