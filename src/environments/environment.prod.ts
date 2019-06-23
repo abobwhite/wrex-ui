@@ -6,7 +6,7 @@ export const environment = {
     getBranches: `${apiBase}/branches`,
     getLinesOfService: `${apiBase}/linesofservice`,
     getUser: `${apiBase}/users/:userId`,
-    postCode: `${apiBase}/user/code`,
+    postCode: `${apiBase}/users/code`,
     getRecommendations: `${apiBase}/users/:userId/recommendations`,
     patchRecommendation: `${apiBase}/recommendations/:recommendationId`
   }
