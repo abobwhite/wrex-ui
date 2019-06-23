@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReferenceService } from './services/reference.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { ReferenceService } from './services/reference.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private referenceService: ReferenceService) { }
+  constructor(private referenceService: ReferenceService, private userService: UserService) { }
 
   public ngOnInit() {
     this.getBranches();

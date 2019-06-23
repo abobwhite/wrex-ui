@@ -23,8 +23,13 @@ export class RegistrationComponent implements OnInit {
 
   public userFormGroup: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private referenceService: ReferenceService, private menuService: MenuService, private router: Router) {
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private referenceService: ReferenceService,
+    private menuService: MenuService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.manageSlackCode();
@@ -36,31 +41,38 @@ export class RegistrationComponent implements OnInit {
     const code = this.activatedRoute.snapshot.queryParamMap.get('code');
     if (code) {
       if (!environment.production) {
+        if (this.userService.getAuth()) {
+          this.router.navigateByUrl('/dashboard');
+        }
         this.userService.setCurrentUser(code).subscribe((user) => {
           this.userService.checkCurrentUser();
-          console.log(user);
-          this.user = user;
-          this.menuService.setForceRegistration((!this.user.hireDate && !this.user.branchId && !this.user.lineOfServiceId));
-
-          this.buildFormGroup();
-          this.userLoading = false;
+          this.continueLoggingIn(user);
         })
       } else {
         this.userService.postUsersCode(code).subscribe((user) => {
-          console.log(user);
           this.userService.setCurrentUser(user.id).subscribe(() => {
             this.userService.checkCurrentUser();
+            this.continueLoggingIn(user);
           });
-
-          this.user = user;
-          this.menuService.setForceRegistration(!(!this.user.hireDate && !this.user.branchId && !this.user.lineOfServiceId));
-          this.buildFormGroup();
-          this.userLoading = false;
         }, (e) => {
           console.log(e, 'error posting slack code');
         })
       }
     }
+  }
+
+  private continueLoggingIn(user) {
+    this.user = user;
+    const registrationIncomplete = !this.user.hireDate && !this.user.branchId && !this.user.lineOfServiceId;
+    if (!registrationIncomplete) {
+      this.userService.storeAuth(user);
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      this.menuService.setForceRegistration(registrationIncomplete);
+    }
+
+    this.buildFormGroup();
+    this.userLoading = false;
   }
 
   private buildFormGroup() {
@@ -88,11 +100,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   public submitRegistration() {
-    console.log(this.userFormGroup.value);
-    const user = {...this.userFormGroup.value};
+    const user = { ...this.userFormGroup.value };
     user.id = this.user.id;
     this.userService.updateUser(user).subscribe(() => {
+      this.userService.setCurrentUser(this.user.id);
       this.menuService.setForceRegistration(false);
+      this.userService.storeAuth(user);
       this.router.navigateByUrl('/preferences');
     });
 

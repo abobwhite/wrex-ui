@@ -22,19 +22,26 @@ export class UserService {
   }
 
   public getCurrentUser() {
-    if (!this.currentUser$) {
+    if (!this.currentUser$ && !this.getAuth()) {
       this.router.navigateByUrl('/');
       return EMPTY;
     }
+
+    if (!this.currentUser$) {
+      return this.setCurrentUser(JSON.parse(this.getAuth()).id)
+    }
+
     return this.currentUser$;
   }
 
   public setCurrentUser(userId: string) {
-    return this.currentUser$ = this.getUser(userId);
+    this.currentUser$ = this.getUser(userId);
+    this.currentUserSubject.next(!!this.currentUser$);
+    return this.currentUser$;
   }
 
   public getUser(userId: string) {
-    return this.http.get(this.apiRouteMapper.mapRoute({userId}, environment.apiEndpoints.getUser));
+    return this.http.get(this.apiRouteMapper.mapRoute({ userId }, environment.apiEndpoints.getUser));
   }
 
   public getUsers() {
@@ -45,10 +52,22 @@ export class UserService {
   }
 
   public updateUser(user) {
-    return this.http.patch(this.apiRouteMapper.mapRoute({userId: user.id}, environment.apiEndpoints.getUser), user);
+    return this.http.patch(this.apiRouteMapper.mapRoute({ userId: user.id }, environment.apiEndpoints.getUser), user);
+  }
+
+  public storeAuth(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  public getAuth() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  public clearAuth() {
+    localStorage.clear();
   }
 
   public postUsersCode(code: string): Observable<any> {
-    return this.http.post(environment.apiEndpoints.postUsersCode, {code})
+    return this.http.post(environment.apiEndpoints.postUsersCode, { code })
   }
 }
