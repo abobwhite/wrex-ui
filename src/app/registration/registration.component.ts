@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
     const code = this.activatedRoute.snapshot.queryParamMap.get('code');
     if (code) {
       if (!environment.production) {
-        this.userService.setCurrentUser('UKFMZV1NW').subscribe((user) => {
+        this.userService.setCurrentUser(code).subscribe((user) => {
           this.userService.checkCurrentUser();
           console.log(user);
           this.user = user;
@@ -48,7 +48,9 @@ export class RegistrationComponent implements OnInit {
       } else {
         this.userService.postUsersCode(code).subscribe((user) => {
           console.log(user);
-          this.userService.setCurrentUser(user.id).subscribe();
+          this.userService.setCurrentUser(user.id).subscribe(() => {
+            this.userService.checkCurrentUser();
+          });
 
           this.user = user;
           this.menuService.setForceRegistration(!(!this.user.hireDate && !this.user.branchId && !this.user.lineOfServiceId));
