@@ -15,7 +15,7 @@ export class UserService {
     return this.http.get(this.apiRouteMapper.mapRoute({userId}, environment.apiEndpoints.getUser))
   }
 
-  public postCode(code: string) {
-    return this.http.post(environment.apiEndpoints.postCode, {code})
+  public postUsersCode(code: string) {
+    return this.http.post(environment.apiEndpoints.postUsersCode, {code})
   }
 }

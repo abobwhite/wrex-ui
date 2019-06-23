@@ -9,7 +9,7 @@ export const environment = {
     getBranches: `${apiBase}/branches`,
     getLinesOfService: `${apiBase}/linesofservice`,
     getUser: `${apiBase}/users/:userId`,
-    postCode: `${apiBase}/users/code`,
+    postUsersCode: `${apiBase}/users/code`,
     getRecommendations: `${apiBase}/users/:userId/recommendations`,
     patchRecommendation: `${apiBase}/recommendations/:recommendationId`
   }

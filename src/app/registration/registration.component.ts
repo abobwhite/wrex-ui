@@ -23,6 +23,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.postCode(this.activatedRoute.snapshot.paramMap.get('code'))
+    this.userService.postUsersCode(this.activatedRoute.snapshot.paramMap.get('code'))
   }
 }
