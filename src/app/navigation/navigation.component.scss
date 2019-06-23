@@ -16,6 +16,9 @@
   img {
     width: 110px;
     margin: 16px auto;
+
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
   }
 }
 
