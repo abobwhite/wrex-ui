@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://165.227.185.149",
+    "target": "http://wrex.rocks:8081",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
