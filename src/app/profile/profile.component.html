@@ -4,8 +4,8 @@
       <div class="user-info">
         <img [src]="userProfilePictureRoute">
         <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-        branch: {{ getUserBranch(user.branchId) }}<br>
-        LoS: {{ getUserLineOfService(user.lineOfServiceId) }}
+        <p>Branch: {{ getUserBranch(user.branchId) }}</p>
+        <p>LoS: {{ getUserLineOfService(user.lineOfServiceId) }}</p>
       </div>
 
       <div class="recent">
@@ -30,7 +30,7 @@
           <div class="form-container">
             <mat-form-field variant="outline" floatLabel="never">
               <textarea [(ngModel)]="statusMessage" matInput
-                placeholder="e.g. Today I did awesome in VisualBasic."></textarea>
+                placeholder="e.g. This week I did some awesome VisualBasics."></textarea>
             </mat-form-field>
 
             <button mat-flat-button color="primary" (click)="submitStatus()">Submit</button>
