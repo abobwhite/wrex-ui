@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     this.userService.getCurrentUser().subscribe((user) => {
       this.recommendationService.getRecommendations(user.id).subscribe(
         (recommendations: Recommendation[]) => {
-          this.recommendations = recommendations.filter((r) => !r.dismissed);
+          this.recommendations = recommendations;
           this.loadingRecommendations = false;
         }, () => {
           console.error('aww we failed to get wrex.');
@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private dismiss(recommendation: Recommendation): void {
-    this.recommendations = this.recommendations.filter(n => n.id !== recommendation.id);
+    recommendation.dismissed = true;
+    this.recommendations[this.recommendations.findIndex((r => r.id === recommendation.id))] = recommendation;
   }
 }
