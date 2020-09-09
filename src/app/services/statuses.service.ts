@@ -22,4 +22,8 @@ export class StatusesService {
     this.statuses$ = undefined;
     return this.http.post(this.apiRouteMapperService.mapRoute({ userId }, environment.apiEndpoints.postStatus), status);
   }
+
+  public resetStatuses() {
+    this.statuses$ = undefined;
+  }
 }

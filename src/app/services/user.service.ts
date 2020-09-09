@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, EMPTY, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiRouteMapperService } from './api-route-mapper.service';
-import { Router } from '@angular/router';
+import { CacheBusterService } from './cache-buster.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UserService {
   public currentUserSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private users$: Observable<any>;
 
-  constructor(private http: HttpClient, private apiRouteMapper: ApiRouteMapperService, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private apiRouteMapper: ApiRouteMapperService, private cacheBuster: CacheBusterService) {
   }
 
   public checkCurrentUser() {
@@ -35,6 +36,8 @@ export class UserService {
   }
 
   public setCurrentUser(userId: string) {
+    this.cacheBuster.clearCache();
+
     this.currentUser$ = this.getUser(userId);
     this.currentUserSubject.next(!!this.currentUser$);
     return this.currentUser$;
