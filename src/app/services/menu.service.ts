@@ -10,7 +10,6 @@ export class MenuService {
   constructor() { }
 
   public setForceRegistration(force: boolean) {
-    console.log(force);
     this.forceRegistrationSubject.next(force);
   }
 }

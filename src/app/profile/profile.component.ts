@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { Tag } from 'src/models/tag.model';
 import { User } from '../../models/user.model';
 import { ReferenceService } from '../services/reference.service';
 import { StatusesService } from '../services/statuses.service';
@@ -84,7 +83,7 @@ export class ProfileComponent implements OnInit {
 
   private getStatuses() {
     this.statusesService.getStatuses(this.user.id).subscribe((statuses: any[]) => {
-      this.statuses = statuses.reverse().slice(0, 5);
+      this.statuses = statuses.slice(0, 5).reverse();
       this.loadingStatuses = false;
     })
   }
