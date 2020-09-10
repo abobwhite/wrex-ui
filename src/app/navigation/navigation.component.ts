@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,9 +13,11 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+  @ViewChild('drawer', {static: true}) drawer: MatDrawer;
+
   isLoggedIn = false;
   showNav: boolean;
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(
       map(result => result.matches)
     );
@@ -29,8 +32,15 @@ export class NavigationComponent implements OnInit {
     this.userService.checkCurrentUser();
 
     this.menuService.forceRegistrationSubject.subscribe((forceRegistration) => {
-      console.log('changed', !forceRegistration)
       this.showNav = !forceRegistration;
+    })
+  }
+
+  public close() {
+    this.isHandset$.subscribe((isHandset) => {
+      if (isHandset) {
+        this.drawer.toggle();
+      }
     })
   }
 
@@ -39,5 +49,6 @@ export class NavigationComponent implements OnInit {
     this.userService.currentUser$ = undefined;
     this.isLoggedIn = false;
     this.router.navigateByUrl('/')
+    this.close();
   }
 }
